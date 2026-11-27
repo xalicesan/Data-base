@@ -15,12 +15,12 @@
 sports_db/
 ├─ 01_schema.sql      # таблицы, ключи, CHECK, триггеры, представление
 ├─ 02_data.sql        # тестовые данные
-├─ 03_queries.sql     # 13 запросов (в работе)
+├─ 03_queries.sql     # 13 запросов
 ├─ reset_db.ps1       # пересоздание базы с нуля
 ├─ tools/
 │  └─ gen_data.py     # генератор 02_data.sql из исходных данных
-├─ docs/              # диаграммы и пояснительная записка
-└─ release/           # дамп для сдачи
+├─ docs/              # решения, workflow, диаграммы и записка
+└─ release/           # дамп для сдачи и вывод запросов
 ```
 
 ## Развёртывание
@@ -49,6 +49,23 @@ psql -U postgres -d sports_db -P pager=off -f 03_queries.sql
 ```powershell
 createdb -U postgres sports_db
 pg_restore -U postgres -d sports_db release/sports_db.dump
+```
+
+## Командная работа
+
+Общего сервера нет: у каждого своя локальная база, обмен — через Git.
+В репозитории лежат скрипты и дамп, поэтому база воспроизводится
+на любом компьютере одной командой.
+
+Подробная инструкция: [docs/workflow.md](docs/workflow.md).
+
+Коротко:
+
+```powershell
+git pull
+.\reset_db.ps1 -PgPassword <пароль>   # если менялись схема или данные
+# правки только в своих файлах
+git add <свой файл> && git commit -m "..." && git push
 ```
 
 ## Модель данных
