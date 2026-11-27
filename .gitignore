@@ -1,0 +1,7 @@
+*.log
+.env
+pgpass.conf
+__pycache__/
+*.pyc
+.vscode/
+.idea/
