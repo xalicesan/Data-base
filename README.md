@@ -26,14 +26,30 @@ sports_db/
 ## Развёртывание
 
 ```powershell
-# один раз: создать базу
+# один раз: создать базу (пароль пользователя postgres)
 createdb -U postgres -E UTF8 -T template0 sports_db
 
 # пересоздать схему и данные
-.\reset_db.ps1
+.\reset_db.ps1 -PgPassword <пароль postgres>
 ```
 
 Параметры подключения по умолчанию: `localhost:5432`, пользователь `postgres`.
+
+Проверить запросы:
+
+```powershell
+psql -U postgres -d sports_db -P pager=off -f 03_queries.sql
+```
+
+Параметры запросов задаются psql-переменными в начале `03_queries.sql`
+(вид спорта, разряд, период, тренер, спортсмен, соревнование и т. д.).
+
+Восстановить базу из дампа:
+
+```powershell
+createdb -U postgres sports_db
+pg_restore -U postgres -d sports_db release/sports_db.dump
+```
 
 ## Модель данных
 
@@ -54,6 +70,6 @@ createdb -U postgres -E UTF8 -T template0 sports_db
 
 - [x] схема БД и ограничения
 - [x] тестовые данные
-- [ ] 13 запросов
+- [x] 13 запросов
 - [ ] приложение
 - [ ] пояснительная записка

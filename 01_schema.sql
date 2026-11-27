@@ -4,6 +4,8 @@
 -- СУБД: PostgreSQL 17
 -- ============================================================
 
+SET client_min_messages = warning;
+
 BEGIN;
 
 DROP VIEW  IF EXISTS v_facility CASCADE;
